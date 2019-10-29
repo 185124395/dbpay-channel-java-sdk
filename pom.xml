@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.egzosn</groupId>
+    <artifactId>pay-java-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>2.12.9-SNAPSHOT</version>
+
+    <name>Pay Java - Parent</name>
+    <description>Pay Java Parent</description>
+    <url>https://github.com/egzosn/pay-java-parent</url>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Egan</name>
+            <email>egzosn@gmail.com</email>
+            <url>https://github.com/egzosn</url>
+        </developer>
+        <developer>
+            <name>Actinia</name>
+            <email>hayesfu@qq.com</email>
+            <url>https://github.com/Actinian</url>
+        </developer>
+        <developer>
+            <name>zch</name>
+            <email>zhangchenghui.dev@gmail.com</email>
+            <url>https://github.com/objcoding</url>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:https://github.com/egzosn/pay-java-parent.git</connection>
+        <developerConnection>scm:git:git@github.com:egzosn/pay-java-parent.git</developerConnection>
+        <url>https://github.com/egzosn/pay-java-parent</url>
+    </scm>
+
+
+    <modules>
+        <module>pay-java-common</module>
+        <module>pay-java-ali</module>
+        <module>pay-java-wx</module>
+        <module>pay-java-wx-youdian</module>
+        <module>pay-java-fuiou</module>
+        <module>pay-java-union</module>
+        <module>pay-java-payoneer</module>
+        <module>pay-java-paypal</module>
+        <module>pay-java-yiji</module>
+        <module>pay-java-demo</module>
+
+    </modules>
+
+
+    <properties>
+        <pay.version>2.12.9-SNAPSHOT</pay.version>
+        <httpmime.version>4.5.4</httpmime.version>
+        <log4j.version>1.2.17</log4j.version>
+        <fastjson.version>1.2.58</fastjson.version>
+        <zxing.version>3.3.1</zxing.version>
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.egzosn</groupId>
+                <artifactId>pay-java-common</artifactId>
+                <version>${pay.version}</version>
+            </dependency>
+
+            <!--httpcomponents-->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpmime</artifactId>
+                <version>${httpmime.version}</version>
+            </dependency>
+            <!--/httpcomponents-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+
+            <!-- log4j  -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <!-- / log4j -->
+
+
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>utf-8</encoding>
+                </configuration>
+            </plugin>
+           <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.3</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <autoVersionSubmodules>false</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        <!-- <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+        </plugins>
+    </build>
+</project>
